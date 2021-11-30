@@ -457,6 +457,34 @@ int main(void)
                                     send_modbus_array( &sendbuff[0], 9 );
                                 }
                                 #endif
+
+                                #ifdef _SHT31_H
+                                // return I2C DEV VALUES
+                                if ( ( daddr >= 0x1240 ) &&
+                                     ( daddr <= 0x1241 ) )
+                                {
+                                    // requested amount
+                                    if ( modbus[5] != 0x02 ) break;
+
+                                    sendbuff[2] = 0x04; // mslen
+
+                                    float V;
+
+                                    if ( daddr == 0x1240 )
+                                      V = (float)sht31ReadValue( SHT31_TEMP ) / 1000;
+                                    if ( daddr == 0x1241 )
+                                      V = (float)sht31ReadValue( SHT31_HUMI ) / 1000;
+
+                                    sendbuff[3] = ((uint8_t*)(&V))[3];
+                                    sendbuff[4] = ((uint8_t*)(&V))[2];
+                                    sendbuff[5] = ((uint8_t*)(&V))[1];
+                                    sendbuff[6] = ((uint8_t*)(&V))[0];
+
+                                    send_modbus_array( &sendbuff[0], 9 );
+                                }
+                                #endif
+
+
                                 #ifdef _SI1145_H
                                 // return I2C DEV VALUES
                                 if ( ( daddr >= 0x1210 ) &&
