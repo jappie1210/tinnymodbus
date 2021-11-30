@@ -67,6 +67,7 @@
 #include "si1145.h"
 #include "bh1750.h"
 #include "bmp280.h"
+#include "sht31.h"
 //#include "bme280.h"
 
 
