@@ -57,7 +57,7 @@
 
 // stap 1, haal de data uit de sht31ReadValue
 
-bool sht31ReadValue(uint8_t TYPE){
+int32_t sht31ReadValue(uint8_t TYPE){
   {
 
     uint8_t buffer[6];
