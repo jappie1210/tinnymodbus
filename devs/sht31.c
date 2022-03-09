@@ -46,7 +46,7 @@
 */
 
 #include "sht31.h"
-
+#include <util/delay.h>
 #include "crc8.h"
 #include "softi2c.h"
 
@@ -69,7 +69,7 @@ int32_t sht31ReadValue(uint8_t TYPE)
     //send command
     i2c_write(SHT31_MEAS_HIGHREP);
     //wait for measurements to complete
-    delay(20);
+    _delay_ms(20);
     //read buffers
     i2c_rep_start((SHT31_ADDR<<1)|0x1);
 
